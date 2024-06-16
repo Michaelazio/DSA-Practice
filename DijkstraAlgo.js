@@ -162,7 +162,7 @@ class Graph{
         } else distance[allNodes[i]] = Infinity; //there after every other nodes adjacent to it are given inifinity value because, later on it will be required to mutate the node's distance value which will be less and that is only for the first time.   
         prev[allNodes[i]] = null; // initially the previous node to a node is always null, as the calculation process hasn't started yet.
     };
-    console.log(`distance object ->`,distance , `and previous object ->`, prev)
+  
    
     while(!pq.isEmpty()){
       
