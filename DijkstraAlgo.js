@@ -66,7 +66,8 @@ class Graph{
     addNodes(node, adjNode, weight){
        if(node !== null && adjNode !== null){
         if(!this.adjacencyList.has(node)){
-            this.adjacencyList.set(node, new Set([{adjNode, weight}])) // When instanciating a Set then, it is required to pass an Iterable. That can be of objects or individual values.
+            this.adjacencyList.set(node, new Set([{adjNode, weight}])) // When instanciating a Set then, it is required to pass an Iterable. 
+            //That can be of objects or individual values.
             return console.log('The Node is Added')
          } else {
              if(this.adjacencyList.has(node)){
@@ -162,16 +163,14 @@ class Graph{
         } else distance[allNodes[i]] = Infinity; //there after every other nodes adjacent to it are given inifinity value because, later on it will be required to mutate the node's distance value which will be less and that is only for the first time.   
         prev[allNodes[i]] = null; // initially the previous node to a node is always null, as the calculation process hasn't started yet.
     };
-    console.log(`distance object ->`,distance , `and previous object ->`, prev)
+
    
     while(!pq.isEmpty()){
-      
-        let currentNode = pq.dequeue();
-  
-        let adjacencySet = graph.getEdgesOfANode(currentNode.node);
+        let currentNode = pq.dequeue(); // currentNode -> GraphNode { {node:... , weight:...}}
+        
+        let adjacencySet = graph.getEdgesOfANode(currentNode.node); // adjacencySet -> Set{ {adjNode:..., weight: ...}...{}}
         
         for(let [key, value ] of adjacencySet.entries()){
-       
             let shortestDistance = distance[currentNode.node] + key.weight; 
             if(shortestDistance < distance[key.adjNode]){
                 distance[key.adjNode] = shortestDistance; 
