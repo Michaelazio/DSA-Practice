@@ -16,7 +16,7 @@ class PriorityQueue{
     };
     
     isEmpty(){
-        return this.list.length = 0
+        return this.list.length === 0
     }
  
     enqueue(node, weight){
@@ -36,10 +36,14 @@ class PriorityQueue{
             this.list.push(nodeEl);
             return console.log(`The Node is added to the last of the List`)
         }
+        // how the enqueue actually looks like : list => [a,b,c,d,e.....n] where a,b,c... are nodes and the node{x: weight of x = y } then 
+        // if the weight of 'a' -> any node in that list falls greater than the node that to enqueue into the list, is placed at that location.
     };
 
     dequeue(){
-        return this.list.shift()
+        let val = this.list.shift();
+        return val
+        //shit() takes the 0th element out from an array
     };
 
     print(){
@@ -107,7 +111,7 @@ class Graph{
         }
     };
 
-    removeAdjacentNode(node, adjNode, weight){
+    removeAdjacentNode(node, adjNode){
         if(this.adjacencyList.has(node)){
             let nodeEl = this.adjacencyList.get(node); 
             console.log(nodeEl)
@@ -137,30 +141,58 @@ class Graph{
 
 }; 
 
-function dijkstra(graph, node){
-    let distance ={};
+ function dijkstra(graph, node){
+    // distance = {} -> { node : 0 , adj1 : infinity ...}
+    let distance ={}; // going to keep track of the from a node to it's immediate adjacency.
+    let prev = {}; // the previous node to it's adjacency, this actually provide the direction of approach for the calculation.
+
+
+
+    //1st taking all the nodes in a graph and taking those into an array 
+    let allNodes =  graph.getAllNodes(); // allNodes = [node1, adj1, adj2,...nodes];
+    console.log(`all the nodes: `+ allNodes)
+    //2nd just to start the calculation from a node, that is passed externally and it is then enqueued into a priorityqueue because it provides 1st and in this consecutive sequence priority, to the lowest weighed node. here the weight stands for the edges of the nodes in a graph. 
+    let pq = new PriorityQueue(); 
+    // going to pass in the starting node into this pq. 
+    pq.enqueue(node, 0); // the weight is given zero because, this is the initial point and distance of it to itself is zero. 
+
+    for (let i=0; i<allNodes.length; i++){ // for all the nodes = [node1, adj1,adj2, ...nodes] the loop runs
+        if(allNodes[i] === node){ //in the very first attempt, if it found that the node at that iteration is equal to the initial node then into the distance object that initial node is passed with the distance value;
+            distance[node] = 0
+        } else distance[allNodes[i]] = Infinity; //there after every other nodes adjacent to it are given inifinity value because, later on it will be required to mutate the node's distance value which will be less and that is only for the first time.   
+        prev[allNodes[i]] = null; // initially the previous node to a node is always null, as the calculation process hasn't started yet.
+    };
+    console.log(`distance object ->`,distance , `and previous object ->`, prev)
+   
+    while(!pq.isEmpty()){
+      
+        let currentNode = pq.dequeue();
+  
+        let adjacencySet = graph.getEdgesOfANode(currentNode.node);
+        
+        for(let [key, value ] of adjacencySet.entries()){
+       
+            let shortestDistance = distance[currentNode.node] + key.weight; 
+            if(shortestDistance < distance[key.adjNode]){
+                distance[key.adjNode] = shortestDistance; 
+                pq.enqueue(key.adjNode, distance[key.adjNode]); 
+                prev[key.adjNode] = currentNode.node;
+            }
+        }
+    }
+
+    return distance; 
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 let graphList1 = new Graph();
 
 graphList1.addEdges(0,1,100);
 graphList1.addEdges(0,2,200);
-graphList1.addEdges(1,2,300); 
-graphList1.print()
+graphList1.addEdges(1,2,300);
+graphList1.addEdges(2,3,100);
+graphList1.addEdges(3,4,100); 
+graphList1.addEdges(4,0,100);
+
+console.log(dijkstra(graphList1, 0))

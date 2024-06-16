@@ -33,7 +33,7 @@ class Graph{
     }
 
     getAParticularNode(node){
-        if(this.adjacencyList.has(node) && !this.adjacencyListSize === 0){
+        if(this.adjacencyList.has(node) ){
             return this.adjacencyList.get(node)
         } else {
             return console.log('Node Not Found')
@@ -41,7 +41,7 @@ class Graph{
     }; 
 
     getAllNodes(){
-        return [...this.adjacencyList.keys()]
+        return console.log([...this.adjacencyList.keys()])
     };
 
     removeANode(node){
@@ -91,7 +91,5 @@ graphList1.addEdges(0,2,200);
 graphList1.addEdges(1,2,300); 
 graphList1.print()
 
-let blck = graphList1.getEdgesOfANode(0)
-for( let [key, value] of blck.entries()){
-    console.log(value)
-}
+console.log(...graphList1.getAParticularNode(0))
+
