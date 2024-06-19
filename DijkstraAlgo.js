@@ -163,7 +163,11 @@ class Graph{
         } else distance[allNodes[i]] = Infinity; //there after every other nodes adjacent to it are given inifinity value because, later on it will be required to mutate the node's distance value which will be less and that is only for the first time.   
         prev[allNodes[i]] = null; // initially the previous node to a node is always null, as the calculation process hasn't started yet.
     };
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 832ae97748dab6887efd954ff24ce39f01070d9c
    
     while(!pq.isEmpty()){
         let currentNode = pq.dequeue(); // currentNode -> GraphNode { {node:... , weight:...}}
