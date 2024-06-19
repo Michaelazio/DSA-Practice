@@ -91,5 +91,23 @@ graphList1.addEdges(0,2,200);
 graphList1.addEdges(1,2,300); 
 graphList1.print()
 
-console.log(...graphList1.getAParticularNode(0))
+console.log(...graphList1.getAParticularNode(0));
+
+
+
+function breadthSearch(graph, sourceNode){
+
+    let visitedNode = [];
+    let queue = []; // Array can be used as a queue when shift() does the dequeue from the 0th place and push() does the enqueue from the last portion of the queue. 
+
+    queue.push(sourceNode); // 1st inserting the source node into the queue, so that the search can begin from here;
+    visitedNode.push(sourceNode); // now once the sourceNode is inserted, that becomes the node which has already been visited;
+    
+    
+    //Now the Idea is that undergoing a contineuos process untill the queue is actually emptied; 
+    //first going to dequeue the queue and taking that node, goin to search the graph for the presence of that node and while doing so willingly take it's adjacent nodes;
+    // after taking the adjacent nodes in a list (well, that's already gonna be output to list like, iterable, i'll just spread then in an array, so that I can take a node each time and continue)
+    // then for all the nodes that are gonna be in the list, going to pick one node at a time and enqueue into the queue and mark it as visited by putting it into the visitedNode array
+
+}
 
